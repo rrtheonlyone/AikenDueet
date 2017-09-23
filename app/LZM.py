@@ -3,7 +3,7 @@ def compress(string):
  
     # Build the dictionary.
     dict_size = 256
-    seen = dict((chr(i), i) for i in xrange(dict_size))
+    seen = dict((chr(i), i) for i in range(dict_size))
  
     p = ""
     output = 0

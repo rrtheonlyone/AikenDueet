@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 
 import ast
 
@@ -30,23 +30,17 @@ class Sorting(Resource):
 
 
 class StringCompression(Resource):
-	def get(self, mode):
-		return "This is string compression on " + mode
+    def get(self, mode):
+        return "This is the String Compression Problem"
 
-	def post(self, mode):
+    def post(self, mode):
+        json_data = request.get_json(force=True)
+        string_value = json_data['data']
 
+        answer = compress(string_value);
 
+        return answer
 
-
-		# if(mode == "RLE"):
-
-		# else if(mode == LZW):
-
-		# else:
-
-
-
-		return "Hello"
 
 api.add_resource(Sorting, '/sort')
 api.add_resource(StringCompression, '/stringcompression/<mode>')
