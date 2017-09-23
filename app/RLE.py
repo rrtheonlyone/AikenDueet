@@ -1,3 +1,5 @@
+import math
+
 def encode(input_string):
     count = 1
     prev = ''
@@ -25,11 +27,7 @@ def decode(lst):
     q = 0 
     bit_length = 8  
     for character, counter in lst:
-        if counter != 1: 
-            q += 2 
-            print(character)
-        else :
-            q+=1
+        q += 1+int(math.ceil(math.log10(counter)))
     q = q * 8
     return q
  

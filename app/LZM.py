@@ -19,8 +19,6 @@ def compress(string):
             p = c
  
     # Output the code for w.
-    if p:
-        output += 1
     return output * 12
 
 n = raw_input() #The input for the string will be here.
