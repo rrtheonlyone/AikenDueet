@@ -18,15 +18,21 @@ def encode(input_string):
         entry = (character,count)
         lst.append(entry)
         output = output + str(count) + str(character)
-    return output
+    return lst
  
  
 def decode(lst):
-    q = ""
-    for character, count in lst:
-        q += character * count
+    q = 0 
+    bit_length = 8  
+    for character, counter in lst:
+        if counter != 1: 
+            q += 2 
+            print(character)
+        else :
+            q+=1
+    q = q * 8
     return q
  
 #Method call
-print(encode("RRRRRRTTTTYYYULLL"))
+print(decode(encode("RRRRRRTTTTYYYULLL")))
 decode([('a', 5), ('h', 6), ('m', 7), ('u', 1), ('i', 7), ('a', 6)])
