@@ -1,9 +1,10 @@
 import math
 
 def circle(sha, rad):
+
     epsilon = 1e-5
 
-    def calculate_triangle(centre, radius, p0, p1):
+    def calculate_triangle(centre, p0, p1):
         # Calculate area of a triangle
         theta0 = math.atan2(p0[1] - centre[1], p0[0] - centre[0])
         theta1 = math.atan2(p1[1] - centre[1], p1[0] - centre[0])
@@ -47,9 +48,9 @@ def circle(sha, rad):
     yR = con[1]
     width = condim[0]
     height = condim[1]
-    xC = sha[0]
-    yC = sha[1]
-    radius = rad
+    xC = float(sha[0])
+    yC = float(sha[1])
+    radius = float(rad)
 
     # Create array of rectangle coordinates
     rectangle = [(xR, yR),
@@ -80,7 +81,25 @@ def circle(sha, rad):
         B = 2 * xM * (xI - xC) + 2 * yM * (yI - yC)
         C = (xI - xC) ** 2 + (yI - yC) ** 2 - radius ** 2
 
-        if math.hypot(xI - xC, yI - yC) < radius + epsilon:
+        if math.fabs(math.hypot(xI - xC, yI - yC) - radius) < epsilon:
+            # The point li is on the circle. Will it go in, or out?
+            theta0 = math.atan2(yC - yI, xC - xI)
+            theta1 = math.atan2(yJ - yI, xJ - xI)
+
+            theta = theta1 - theta0
+            if theta > math.pi:
+                theta -= 2 * math.pi
+            elif theta < -math.pi:
+                theta += 2 * math.pi
+
+            points = [rectangle[i]]
+            if -math.pi/2 < theta < math.pi/2:
+                # It goes in!
+                in_circle = True
+            else:
+                # Wait no!
+                in_circle = False
+        elif math.hypot(xI - xC, yI - yC) < radius - epsilon:
             # The point li is in the circle
             in_circle = True
             points = [rectangle[i]]
@@ -118,25 +137,24 @@ def circle(sha, rad):
         for p0, p1 in zip(points, points[1:]):
             # Calculate area
             if in_circle:
-                ans += calculate_triangle((xC, yC), radius, p0, p1)
+                ans += calculate_triangle((xC, yC), p0, p1)
             else:
                 ans += calculate_sector((xC, yC), radius, p0, p1)
 
             # Flip parity
             in_circle ^= True
 
-    return("{0:.2f}".format(width * height - ans))  
+    print("{0:.2f}".format(math.fabs(width * height - math.fabs(ans))))
 
 def rectangle(sha, shadim):
-    if (sha[0] > con[0]):
-        dx = min(condim[0] - sha[0] + con[0], shadim[0])
-    else:
-        dx = min(shadim[0] - con[0] + sha[0], condim[0])
-    if (sha[1] > con[1]):
-        dy = min(condim[1] - sha[1] + con[1], shadim[1])
-    else:
-        dy = min(shadim[1] - con[1] + sha[1], condim[1])
-    return condim[0] * condim[1] - dx*dy
+    left = max (con[0], sha[0])
+    right = min (con[0] + condim[0], sha[0] + shadim[0])
+    bottom = max (con[1], sha[1])
+    top = min (con[1] + condim[1], sha[1] + shadim[1])
+    
+    if (left < right and bottom < top):
+        return condim[0] * condim[1] - (right-left)*(top-bottom)
+    return 0
 
 ph = raw_input()
 con = [int(x) for x in ph.split()] #Container Coordinates
