@@ -21,5 +21,5 @@ def compress(string):
     # Output the code for w.
     return output * 12
 
-n = raw_input() #The input for the string will be here.
-print compress(n)
+# n = raw_input() #The input for the string will be here.
+# print compress(n)
