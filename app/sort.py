@@ -1,44 +1,32 @@
-def quickSort(alist):
-   quickSortHelper(alist,0,len(alist)-1)
-
-def quickSortHelper(alist,first,last):
-   if first<last:
-
-       splitpoint = partition(alist,first,last)
-
-       quickSortHelper(alist,first,splitpoint-1)
-       quickSortHelper(alist,splitpoint+1,last)
 
 
-def partition(alist,first,last):
-   pivotvalue = alist[first]
 
-   leftmark = first+1
-   rightmark = last
+def qsort(L):
+  quicksort(L,0,len(L))
 
-   done = False
-   while not done:
+def quicksort(L,start,stop):
+  if stop - start < 2: return
+  key = L[R.randrange(start,stop)]
+  e = u = start
+  g = stop
+  while u < g:
+    if L[u] < key:
+      swap(L,u,e)
+      e = e + 1
+      u = u + 1
+    elif L[u] == key:
+      u = u + 1
+    else:
+      g = g - 1
+      swap(L,u,g)
+  quicksort(L,start,e)
+  quicksort(L,g,stop)
 
-       while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
-           leftmark = leftmark + 1
+def swap(A,i,j):
+  temp = A[i]
+  A[i] = A[j]
+  A[j] = temp
 
-       while alist[rightmark] >= pivotvalue and rightmark >= leftmark:
-           rightmark = rightmark -1
-
-       if rightmark < leftmark:
-           done = True
-       else:
-           temp = alist[leftmark]
-           alist[leftmark] = alist[rightmark]
-           alist[rightmark] = temp
-
-   temp = alist[first]
-   alist[first] = alist[rightmark]
-   alist[rightmark] = temp
-
-
-   return rightmark
-
-alist = [54,26,93,17,77,31,44,55,20]
-quickSort(alist)
-print(alist)
+L = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]
+qsort(L)
+print L
