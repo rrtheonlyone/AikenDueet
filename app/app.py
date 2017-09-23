@@ -58,7 +58,7 @@ class TrainPlanner(Resource):
 
 api.add_resource(Sorting, '/sort')
 api.add_resource(StringCompression, '/stringcompression/<mode>')
-api.add_resource(StringCompression, '/trainPlanner')
+api.add_resource(TrainPlanner, '/trainPlanner')
 
 
 

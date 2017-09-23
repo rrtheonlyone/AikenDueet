@@ -24,6 +24,6 @@ def swap(A,i,j):
   A[i] = A[j]
   A[j] = temp
 
-L = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]
-qsort(L)
-print L
+# L = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]
+# qsort(L)
+# print L
