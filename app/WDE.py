@@ -4,11 +4,13 @@ def compressWDE(string):
     words = set()
     npc = 0
     for i in string:
-        if not (i.isalpha() or i.isdigit()):
+        if not i.isalpha():
             npc += 1
-    dlist = re.findall(r"\w+",string)
+    dlist = re.findall(r"[A-Za-z]+",string)
+    print dlist
     dictsize = 0
     nw = len(dlist)
+    print nw
     for i in dlist:
         if i not in words:
             dictsize += len(i)
@@ -17,8 +19,8 @@ def compressWDE(string):
     return (nw + npc)*12 + dictsize*8
 
 
-# n = raw_input()
+# n = raw_hiinput()
 # if n == "":
 #    print 0
 # else:
-#    print compressWDE(n)
+# print compressWDE(n)
