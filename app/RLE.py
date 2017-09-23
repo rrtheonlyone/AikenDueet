@@ -34,5 +34,5 @@ def decode(lst):
     return q
  
 #Method call
-print(decode(encode("RRRRRRTTTTYYYULLL")))
-decode([('a', 5), ('h', 6), ('m', 7), ('u', 1), ('i', 7), ('a', 6)])
+# print(decode(encode("RRRRRRTTTTYYYULLL")))
+# decode([('a', 5), ('h', 6), ('m', 7), ('u', 1), ('i', 7), ('a', 6)])

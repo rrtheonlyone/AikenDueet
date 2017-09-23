@@ -1,6 +1,3 @@
-
-
-
 def qsort(L):
   quicksort(L,0,len(L))
 
