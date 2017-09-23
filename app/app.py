@@ -5,17 +5,18 @@ app = Flask(__name__)
 api = Api(app)
 
 class Sorting(Resource):
-
     def get(self):
         return "This is the sorting problem answer"
 
     def post(self):
     	raw_list = request.get_data()
-    	print(list(name))
+    	raw_list = list(raw_list)
+    	print(raw_list)
+    	sorted_list = raw_list.sort()
+    	return sorted_list
 
-    	return "test"
 
-api.add_resource(Sorting, '/')
+api.add_resource(Sorting, '/sort')
 
 
 
