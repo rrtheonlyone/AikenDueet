@@ -3,7 +3,7 @@ import operator
 with open('horse_racing.json', 'r') as outfile:
 	test = json.load(outfile)
 
-print(len(test))
+#print(len(test))
 jockey_wins = 0
 horse_wins = 0
 trainer_wins = 0
@@ -21,8 +21,8 @@ def best_horses(json):
 
 
 		#Print horse, jockey name , the placing and then the trainer of the horse 
-		print(horse_name + ' ' + jockey_name + ' ' + placing + ' ' + trainer)
-		if horse_name in horse_lst:
+		#print(horse_name + ' ' + jockey_name + ' ' + placing + ' ' + trainer)
+		if horse_name in horse_lst and test[horse]['Placing'] == 1:
 			horse_lst[horse_name] += 1
 		else: 
 				horse_lst.update({horse_name:1})
@@ -33,7 +33,7 @@ def best_jockey(json):
 	jockey_lst = {}
 	for horse in range(len(test)):
 		jockey_name = test[horse]['jockeycode']
-		if jockey_name in jockey_lst:
+		if jockey_name in jockey_lst and test[horse]['Placing'] == 1:
 			jockey_lst[jockey_name] += 1
 		else: 
 			jockey_lst.update({jockey_name:1})
@@ -47,12 +47,42 @@ def best_trainer(json):
 		trainer_name = test[horse]['Trainer']
 
 		trainer = test[horse]['Trainer']
-		if trainer_name in trainer_lst:
+		if trainer_name in trainer_lst and test[horse]['Placing'] == 1:
 			trainer_lst[trainer_name] += 1
 		else: 
 			trainer_lst.update({trainer_name:1})
 
 	return max(trainer_lst, key = trainer_lst.get)
+
+def combination_of_horse(test):
+	horse_lst = {}
+	for horse in range(len(test)):
+
+		horse_name = test[horse]['Horse']
+		jockey_name = test[horse]['jockeycode']
+		placing = test[horse]['Placing']
+		trainer = test[horse]['Trainer']
+		combination = horse_name + jockey_name +trainer
+
+
+		#Print horse, jockey name , the placing and then the trainer of the horse 
+		#print(horse_name + ' ' + jockey_name + ' ' + placing + ' ' + trainer)
+		if horse_name in horse_lst and test[horse]['Placing'] == 1:
+			horse_lst[combination] += 7
+		elif horse_name in horse_lst and test[horse]['Placing'] == 2:
+			horse_lst[combination] += 3
+		elif horse_name in horse_lst and test[horse]['Placing'] == 2:
+			horse_lst[combination] += 1
+		else: 
+			horse_lst.update({combination:0})
+
+	return max(horse_lst, key = horse_lst.get)
+
+
+def sequential_response(test):
+	#
+	return None
+
 print(best_jockey(test))
 print(best_horses(test))
 print(best_trainer(test))
