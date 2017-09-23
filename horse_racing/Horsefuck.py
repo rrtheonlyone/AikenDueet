@@ -4,7 +4,7 @@ mm = [{'horse': u'CHEERFUL BOY(V019)', 'race': 7, 'joc': 'K K Chiong', 'pos': 11
 def joel(json):
     def daytime_to_int(date):
     	remove_dash = date.split("-")
-    	return int("".join(remove_dash))
+    	return "".join(remove_dash)
 
 	jockey_lst = []
 	for i in range(len(json)):
@@ -140,13 +140,13 @@ def redates(lstrace, lstdate):
     output = []
     for i in range (3):
         r = lstrace[i]
-        d = str(lstdate[i])
+        d = lstdate[i]
         output.append(d[0:4] + "-" + d[5:6] + "-" + d[7:8] + ":" + str(r))
     return output
 
 def question3(n):
 
-    newer = sorted(n, key=lambda k: (k['date'],k['race']))
+    newer = sorted(n, key=lambda k: (k['date'],k['race'],k['pos']))
     new = []
     curr = newer[0]["race"]
     for i in range(1, len(new)):

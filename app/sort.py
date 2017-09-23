@@ -1,32 +1,16 @@
-import random
-R = random.Random(42)
+def qsort (L):
+    c = [0]*20001
+    output = []
+    for i in L:
+        c[i+10000] += 1
+    for i in range(20001):
+        if c[i] != 0:
+            temp = [i-10000]*c[i]
+            output.extend(temp)
+    print(c)
+    return output
 
-def qsort(L):
-    quicksort(L,0,len(L))
 
-def quicksort(L,start,stop):
-    if stop - start < 2: return
-    key = L[R.randrange(start,stop)]
-    e = u = start
-    g = stop
-    while u < g:
-        if L[u] < key:
-            swap(L,u,e)
-          e = e + 1
-          u = u + 1
-        elif L[u] == key:
-            u = u + 1
-        else:
-            g = g - 1
-            swap(L,u,g)
-    quicksort(L,start,e)
-    quicksort(L,g,stop)
-
-def swap(A,i,j):
-    temp = A[i]
-    A[i] = A[j]
-    A[j] = temp
-
-L = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]
-qsort(L)
-print L
+# L = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]
+# qsort(L)
+# print L

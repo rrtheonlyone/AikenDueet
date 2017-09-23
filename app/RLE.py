@@ -1,6 +1,6 @@
 import math
 
-def compress(string):
+def compress1(string):
     curr = ""
     output = -1
     count = 1
