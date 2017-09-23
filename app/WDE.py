@@ -16,8 +16,8 @@ def compressWDE(string):
     return (nw + npc)*12 + dictsize*8
 
 
-# n = raw_input()
-# if n == "":
-#     print 0
-# else:
-#     print compressWDE(n)
+n = raw_input()
+if n == "":
+    print 0
+else:
+    print compressWDE(n)
