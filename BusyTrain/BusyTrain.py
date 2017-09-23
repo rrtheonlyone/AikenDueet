@@ -7,18 +7,15 @@ lst = [{"name": "Punggol","passengers": 80,"connections": [{"station": "Sengkang
 
 def busybody(destination, lst):
 
-    def DFS():
-        if not dfs:
-            return 0
-        print dfs.popleft()
-
-
     statid = {}
+    idstat = {}
+    numpass = {}
     dictcount = 0
     adjlist = {}
 
     for i in lst:
-        print i
+        output = set()
+        p = i["passengers"]
         statname = i["name"]
         try:
             currid = statid[statname]
@@ -26,7 +23,11 @@ def busybody(destination, lst):
             statid[statname] = dictcount
             currid = dictcount
             dictcount += 1
-        output = set()
+
+        idstat[currid] = statname
+
+        numpass[currid] = p
+
         for j in i["connections"]:
             statname = j["station"]
             try:
@@ -38,10 +39,49 @@ def busybody(destination, lst):
             output.add(con)
         adjlist[currid] = output
 
+    destinationid = statid[destination]
+
+    colour = [-1 for x in range(len(statid))]
     dfs = collections.deque()
-    dfs.append(statid[destination])
-    DFS()
-    return adjlist
+    colour[destinationid] = 999
+
+    for i in adjlist[destinationid]:
+        colour[i] = i
+        dfs.append((i,i)) 
+
+    while dfs:
+        pp = dfs.popleft()
+        for i in adjlist[pp[0]]:
+            if colour[i] != -1:
+                continue
+            colour[i] = pp[1]
+            dfs.append((i, pp[1]))
+
+    final = [0 for x in range(len(statid))]
+
+    for i in range(len(colour)):
+        if colour[i] == 999:
+            continue
+        final[colour[i]] += numpass[i]
+
+    paess = -1
+    for i in range(len(final)):
+        if final[i] > paess:
+            paess = final[i]
+            theindex = i
+
+    strat = idstat[theindex]
+    for i in lst:
+        if i["name"] == strat:
+            for j in i["connections"]:
+                if j["station"] == destination:
+                    out = j["line"]
+
+    return {"line": out,
+            "totalNumOfPassengers": max(final),
+            "reachingVia": strat}
+    
+
 
 
 
